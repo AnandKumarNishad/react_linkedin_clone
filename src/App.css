@@ -1,38 +1,74 @@
-.App {
-  text-align: center;
+.inner_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+form {
+    padding: 40px 30px;
+    margin: 50px 50px 20px 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgb(186, 183, 183);
+    width: 350px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inner_container form h1 {
+    font-size: 2rem;
+    padding: 5px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.inner_container form p {
+    padding: 0 0 20px 0;
 }
 
-.App-link {
-  color: #61dafb;
+h2{
+    color: #0B66C3;
+    padding: 0 0 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.inner_container form .ui form button{
+    border-radius: 25px;
+}
+
+.inner_container .joinText span{
+    color: #0B66C3;
+    font-weight: bold;
+}
+
+.titleText {
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 20px ;
+}
+
+label {
+    color:#6b6b6b;
+}
+
+h3 {
+    text-align: center;
+    font-size: 0.7rem;
+    padding-bottom: 10px;
+}
+
+h3 span {
+    font-weight: bold;
+    color:#0B66C3;
+}
+
+.inner_container form .ui h4 {
+    text-align: center;
+    padding: 10px 0 0 0 ;   
+}
+
+.inner_container form .ui h4 span {
+    color: #0B66C3;
+    font-weight: bold;
+}
+
+.inner_container .bissText span {
+    color: #0B66C3;
+    font-weight: bold;
 }

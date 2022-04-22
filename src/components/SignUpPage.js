@@ -40,7 +40,7 @@ const SignUpPage = () => {
         });
 
         const data = res;
-        if (data.status == 500){
+        if (data.status === 500){
             window.alert("Registration Failed...");
             window.location.reload();
         }
@@ -52,7 +52,6 @@ const SignUpPage = () => {
 
     const validate = (values) => {
         const errors = {}
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         if(!values.email){
             errors.email = "Email is required!";
         }
@@ -64,7 +63,6 @@ const SignUpPage = () => {
 
     useEffect(() => {
         if(Object.keys(formErrors).length === 0 && isSubmit){
-            console.log(user);
             postData();
         }
     }, [formErrors]);
@@ -74,7 +72,7 @@ const SignUpPage = () => {
         <Container>
             <Content>
                 <Logo>
-                    <a href="/home">
+                    <a href="/sign-up">
                         <img src="/images/login-logo.svg" alt="" />
                     </a>
                 </Logo>
@@ -105,7 +103,7 @@ const SignUpPage = () => {
                         </div>
                         <h3>By clicking Agree & Join, you agree to the LinkedIn <span>User Agreement, Privacy Policy,</span> and <span>Cookie Policy.</span></h3>
                         <button className="fluid ui circular button blue" >Agree & Join</button>
-                        <h4>Already on LinkedIn? <span>Sign in</span></h4>
+                        <h4>Already on LinkedIn? <span><a href="/login">Sign in</a></span></h4>
                     </div>
                 </form>
                 <div className='bissText'>

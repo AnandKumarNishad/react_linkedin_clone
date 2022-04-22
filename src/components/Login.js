@@ -1,25 +1,29 @@
 import styled from "styled-components";
 import React from 'react';
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { signInAPI } from "../actions";
+import { useNavigate } from "react-router-dom";
+import { SET_USER } from "../actions/actionType";
 
 const Login = (props) => {
+    let navigate = useNavigate();
     return (
         <Container>
+            {
+                props.user &&
+                navigate('/home')
+            }
             <Nav>
                 <a href='/'>
                     <img src='./images/login-logo.svg' alt="logo"></img>
                 </a>
                 <div>
-                    <Link to = {`/sign-up`}>
-                        <Join>
-                            Join Now
-                        </Join>
-                    </Link>
-                    <Link to = {`/login`}>
-                        <Signin>
-                            Sign In
-                        </Signin>
-                    </Link>
+                    <Join href = {'/sign-up'}>
+                        Join Now
+                    </Join>
+                    <Signin href = {'/login'}>
+                        Sign In
+                    </Signin>
                 </div>
             </Nav>
             <Section>
@@ -28,7 +32,8 @@ const Login = (props) => {
                     <img src="./images/login-hero.svg" alt="WORK" />
                 </Hero>
                 <Form>
-                    <Google>
+                    <Google 
+                    onClick={() => props.signIn()}>
                         <img src="./images/google.svg" alt="GOOGLE" />
                         Sign in with Google
                     </Google>
@@ -174,5 +179,14 @@ const Google = styled.button`
     }
 `;
 
+const mapStateToProps = (state) => {
+    return {
+        user: state.userState.user,
+    };
+};;
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+    signIn: () => dispatch(signInAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

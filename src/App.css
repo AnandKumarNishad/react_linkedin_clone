@@ -26,6 +26,7 @@ form {
 h2{
     color: #0B66C3;
     padding: 0 0 10px 0;
+    cursor: pointer;
 }
 
 .inner_container form .ui form button{
@@ -56,6 +57,7 @@ h3 {
 h3 span {
     font-weight: bold;
     color:#0B66C3;
+    cursor: pointer;
 }
 
 .inner_container form .ui h4 {
@@ -71,4 +73,15 @@ h3 span {
 .inner_container .bissText span {
     color: #0B66C3;
     font-weight: bold;
+    cursor: pointer;
+}
+
+h1 {
+    padding: 30px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+h1 span {
+    color: red;
 }

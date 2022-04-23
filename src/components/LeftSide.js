@@ -10,7 +10,9 @@ const LeftSide = (props) => {
                 <UserInfo>
                     <CardBackground />
                     <a>
-                        <Photo />
+                        <Photo>
+                            {props.user ? <img src = {props.user.photoURL} alt ="" /> : <img src="/images/photo.svg" alt="" />}
+                        </Photo>
                         <Link>Welcome! {props.user ? props.user.displayName : ""}</Link>
                     </a>
                     <a>
@@ -88,7 +90,6 @@ const CardBackground = styled.div`
 
 const Photo = styled.div`
     box-shadow: none;
-    background-image: url("/images/photo.svg");
     width: 72px;
     height: 72px;
     box-sizing: border-box;
@@ -98,8 +99,14 @@ const Photo = styled.div`
     background-size: 60%;
     background-repeat: no-repeat;
     border: 2px solid white;
+    border-radius: 50%;
     margin: -38px auto 12px;
     border-radius: 50%;
+    img {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+    }
 `;
 
 const Link = styled.div`
@@ -204,7 +211,5 @@ const mapStateToProps = (state) => {
         user:state.userState.user,
     };
 };
-
-
 
 export default connect(mapStateToProps)(LeftSide);  

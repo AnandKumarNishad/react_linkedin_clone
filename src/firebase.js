@@ -1,8 +1,10 @@
 import firebase from 'firebase';
+import "firebase/storage"
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHYRxuystw3oiOsKbxfVR2QGNL3wxtIZM",
     authDomain: "linkedin-clone-60bd5.firebaseapp.com",
+    databaseURL: "https://linkedin-clone-60bd5.firebaseio.com",
     projectId: "linkedin-clone-60bd5",
     storageBucket: "linkedin-clone-60bd5.appspot.com",
     messagingSenderId: "610819388814",
@@ -17,4 +19,4 @@ const provider = new firebase.auth.GoogleAuthProvider();
 const storage = firebase.storage();
 
 export { auth, provider, storage };
-export default db;
+export default db; 

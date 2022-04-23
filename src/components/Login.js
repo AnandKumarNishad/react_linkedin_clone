@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from "react-redux";
 import { signInAPI } from "../actions";
 import { useNavigate } from "react-router-dom";
-import { SET_USER } from "../actions/actionType";
 
 const Login = (props) => {
     let navigate = useNavigate();
@@ -183,7 +182,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.userState.user,
     };
-};;
+};
 
 const mapDispatchToProps = (dispatch) => ({
     signIn: () => dispatch(signInAPI()),

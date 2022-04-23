@@ -1,9 +1,17 @@
 import styled from "styled-components";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostModal from './PostModal';
+import { connect } from "react-redux";
+import { getArticlesAPI } from "../actions";
+import ReactPlayer from "react-player";
 
 const Main = (props) => {
     const [showModal, setShowModal] = useState("close");
+
+    useEffect(() => {
+        props.getArticles();
+    },[]);
+
     const handleClick = (e) => {
         e.preventDefault();
         if(e.target !== e.currentTarget){
@@ -22,11 +30,17 @@ const Main = (props) => {
         }
     }
     return (
+        <>
+        {
+            props.articles.length === 0 ?
+            <p>No Articles to show</p>
+            :
         <Conatainer>
             <ShareBox>
                 <div>
-                    <img src="./images/user.svg" alt="" />
-                    <button onClick={handleClick}>Start a Post</button>
+                    {props.user ? <img src = {props.user.photoURL} alt ="" /> : <img src="/images/user.svg" alt="" />}
+                    <button onClick={handleClick} 
+                    disabled={props.loading ? true : false}>Start a Post</button>
                 </div>
 
                 <div>
@@ -51,15 +65,20 @@ const Main = (props) => {
                     </button>
                 </div>
             </ShareBox>
-            <div>
-                <Article>
+            <Content>
+                {
+                    props.loading && <img src="./images/spin_icon.svg" alt="" />
+                }
+                {props.articles.length > 0 &&
+                props.articles.map((article, key) => (
+                <Article key={key}>
                     <SharedActor>
                         <a>
-                            <img src="./images/user.svg" alt="" />
+                            <img src = {article.actor.image} alt ="" />
                             <div>
-                                <span>Title</span>
-                                <span>Info</span>
-                                <span>Date</span>
+                                <span>{article.actor.title}</span>
+                                <span>{article.actor.description}</span>
+                                <span>{article.actor.date.toDate().toLocaleDateString()}</span>
                             </div>
                         </a>
                         <button>
@@ -67,11 +86,17 @@ const Main = (props) => {
                         </button>
                     </SharedActor>
                     <Description>
-                        description
+                         {article.description}
                     </Description>
                     <SharedImg>
                         <a>
-                            <img src="./images/nature.jpg" alt=""/>
+                            {
+                                !article.SharedImg && article.video ?(
+                                    <ReactPlayer width={'100%'} url={article.video}></ReactPlayer>
+                                ) : (
+                                    <img width={'100%'} src={article.sharedImg} alt=""/>
+                                )
+                            } 
                         </a>
                     </SharedImg>
                     <SocialCounts>
@@ -79,12 +104,12 @@ const Main = (props) => {
                             <button>
                                 <img src="./images/thumbup-icon.png" alt=""/>
                                 <img src="./images/clappingHands-icon.png" alt=""/>
-                                <span>75</span>
+                                <span>0 Likes</span>
                             </button>
                         </li>
                         <li>
                             <a>
-                                2 comments
+                                {article.comments} Comments
                             </a>
                         </li>
                     </SocialCounts>
@@ -107,9 +132,12 @@ const Main = (props) => {
                         </button>
                     </SocialActions>
                 </Article>
-            </div>
+                ))}
+            </Content>
             <PostModal showModal={showModal} handleClick={handleClick}/>
         </Conatainer>
+        }
+        </>
     );
 };
 
@@ -182,6 +210,12 @@ const ShareBox = styled(CommonCard)`
         }
     }
 `
+const Content = styled.div`
+    text-align: center;
+    & > img {
+        width: 30px;
+    }
+`;
 
 const Article = styled(CommonCard)`
     padding: 0;
@@ -317,4 +351,16 @@ const SocialActions = styled.div`
     }
 `
 
-export default Main;
+const mapStateToProps = (state) => {
+    return {
+        loading: state.articleState.loading,
+        user:state.userState.user,
+        articles:state.articleState.articles,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    getArticles: () => dispatch(getArticlesAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
